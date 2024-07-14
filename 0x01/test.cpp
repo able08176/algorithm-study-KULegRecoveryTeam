@@ -62,22 +62,6 @@ int func4_jaeyoung(int N){
     // 시간복잡도: O(log N)
 }
 
-int func1_yunseong(int N){
-    return -1;
-}
-
-int func2_yunseong(int arr[], int N){
-    return -1;
-}
-
-int func3_yunseong(int N){
-    return -1;
-}
-
-int func4_yunseong(int N){
-    return -1;
-}
-
 void test1(){
     cout << "****** func1 test ******\n";
     int n[3] = {16, 34567, 27639};
