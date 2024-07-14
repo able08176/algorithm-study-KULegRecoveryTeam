@@ -5,13 +5,23 @@
 using namespace std;
 
 int func2(int arr[], int n) {
-    int freq[101];
+    int freq[101] = {0};
     for (int i = 0; i < n; ++i) {
         freq[arr[i]]++;
     }
     for (int i = 0; i < n; ++i) {
         if (freq[100 - arr[i]])
             return 1;
+    }
+    return 0;
+}
+
+int func2_solution(int arr[], int n) {
+    int occur[101] = {};
+    for (int i = 0; i < n; ++i) {
+        if (occur[100 - arr[i]])
+            return 1;
+        occur[arr[i]] = 1;
     }
     return 0;
 }
