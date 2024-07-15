@@ -42,17 +42,27 @@ int main(void) {
 	for (int i = 1; i < n + 1; i++) L.push_back(i);
 
 	auto cursor = L.begin();
-	for (int i = 0; i < k - 1; i++) cursor++;
-	cout << *cursor;
+	cout << "<";
+	for (int i = 0; i < k; i++) cursor++;
+	cout << *--cursor << ", ";
 	cursor = L.erase(cursor);
 	cursor--;
 
+
 	for (int i = 1; i < n + 1; i++) {
 		for (int m = 0; m < k; m++) {
-			if (cursor == L.end()) { cursor = L.begin(); }
-			else { cursor++; }
+			if (cursor == L.end()) cursor = L.begin();
+			cursor++;
 		}
+		if (cursor == L.end()) cursor = L.begin();
+
 		cout << *cursor;
 		cursor = L.erase(cursor);
+
+		if (L.size() == 0) break;
+		cout << ", ";
+		if (cursor == L.begin()) cursor = L.end();
+		cursor--;
 	}
+	cout << ">";
 }
