@@ -40,8 +40,8 @@ int main(void) {
 */
 
 /* 문제 : 3273
-int arr[2000001] = {};
-int arr2[100000];
+bool arr[1000001];
+int arr2[100000] = {};
 
 int main(void) {
 	ios::sync_with_stdio(0);
@@ -50,10 +50,13 @@ int main(void) {
 	cin >> n;
 	for (int k = 0; k < n; k++) {
 		cin >> arr2[k];
-		arr[arr2[k]]++;
+		arr[arr2[k]] = true;
 	}
 	cin >> x;
-	for (int k = 0; k < n; k++) if (arr[arr2[k]] == 1 && arr[x - arr2[k]] == 1) count++;
+	for (int k = 0; k < n; k++) 
+		if (x - arr2[k] > 0 && x - arr2[k] < 1000000) {
+			if (arr[arr2[k]] && arr[x - arr2[k]]) count++;
+		}
 	cout << count / 2;
 }
 */
