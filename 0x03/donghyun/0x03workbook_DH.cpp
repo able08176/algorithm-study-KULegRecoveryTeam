@@ -1,68 +1,62 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/* 문제 : 5397
+/* 문제 : 2577
 int main(void) {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-	int a;
-	string str;
-	cin >> a;
-	for (int n = 0; n < a; n++) {
-		cin >> str;
-		list<char> L = {};
-		auto cursor = L.begin();
-		for (auto i : str) {
-			if (i == '<') {
-				if (cursor != L.begin()) cursor--;
-			}
-			else if (i == '>') {
-				if (cursor != L.end()) cursor++;
-			}
-			else if (i == '-') {
-				if (cursor != L.begin()) cursor = L.erase(--cursor);
-			}
-			else L.insert(cursor, i);
-		}
-		for (auto c : L) cout << c;
-		cout << "\n";
-
+	int a, b, c, m, arr[10];
+	fill(arr, arr + 10, 0);
+	cin >> a >> b >> c;
+	m = a * b * c;
+	while (m != 0) {
+		arr[m % 10]++;
+		m /= 10;
 	}
+	for (int i = 0; i < 10; i++) cout << arr[i] << "\n";
 }
 */
-// 문제 : 1158 요세푸스 문제
-// 런타임오류 : 왜뜨는건지 모르겠음
+
+/* 문제 : 1475
 int main(void) {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-	int n, k;
-	list<int> L = {};
-	cin >> n >> k;
-
-	for (int i = 1; i < n + 1; i++) L.push_back(i);
-
-	auto cursor = L.begin();
-	cout << "<";
-	for (int i = 0; i < k; i++) cursor++;
-	cout << *--cursor << ", ";
-	cursor = L.erase(cursor);
-	cursor--;
-
-
-	for (int i = 1; i < n + 1; i++) {
-		for (int m = 0; m < k; m++) {
-			if (cursor == L.end()) cursor = L.begin();
-			cursor++;
-		}
-		if (cursor == L.end()) cursor = L.begin();
-
-		cout << *cursor;
-		cursor = L.erase(cursor);
-
-		if (L.size() == 0) break;
-		cout << ", ";
-		if (cursor == L.begin()) cursor = L.end();
-		cursor--;
+	int a, arr[9], max = 0;
+	fill(arr, arr + 9, 0);
+	cin >> a;
+	while (a != 0) {
+		if (a % 10 == 9) arr[6]++;
+		else arr[a % 10]++;
+		a /= 10;
 	}
-	cout << ">";
+	if (arr[6] % 2 == 0) arr[6] /= 2;
+	else arr[6] = arr[6] / 2 + 1;
+
+	for (int i = 0; i < 9; i++) {
+		if (arr[i] > max) max = arr[i];
+	}
+	cout << max;
 }
+*/
+
+/* 문제 : 3273
+bool arr[1000001];
+int arr2[100000] = {};
+
+int main(void) {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n, x, count = 0;
+	cin >> n;
+	for (int k = 0; k < n; k++) {
+		cin >> arr2[k];
+		arr[arr2[k]] = true;
+	}
+	cin >> x;
+	for (int k = 0; k < n; k++) 
+		if (x - arr2[k] > 0 && x - arr2[k] < 1000000) {
+			if (arr[arr2[k]] && arr[x - arr2[k]]) count++;
+		}
+	cout << count / 2;
+}
+*/
