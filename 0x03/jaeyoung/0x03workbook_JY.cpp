@@ -20,7 +20,7 @@ int main(void) {
     //     cout << n << "\n";
     // }
 
-    //BOJ_2577_solution
+    // BOJ_2577_solution
     // ios::sync_with_stdio(0);
     // cin.tie(0);
     // int a, b, c;
@@ -35,22 +35,22 @@ int main(void) {
     //     cout << n << "\n";
     // }
 
-    //BOJ_1475
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    int room_num;
-    cin >> room_num;
-    int freq[10] = {};
-    while (room_num) {
-        freq[room_num % 10]++;
-        room_num /= 10;
-    }
-    int ans = 0;
-    for (int i = 0; i < 10; ++i) {
-        if (i == 6 || i == 9)
-            continue;
-        ans = max(ans, freq[i]);
-    }
-    ans = max(ans, (freq[6] + freq[9] + 1) / 2);
-    cout << ans;
+    // BOJ_1475
+    // ios::sync_with_stdio(0);
+    // cin.tie(0);
+    // int room_num;
+    // cin >> room_num;
+    // int freq[10] = {};
+    // while (room_num) {
+    //     freq[room_num % 10]++;
+    //     room_num /= 10;
+    // }
+    // int ans = 0;
+    // for (int i = 0; i < 10; ++i) {
+    //     if (i == 6 || i == 9)
+    //         continue;
+    //     ans = max(ans, freq[i]);
+    // }
+    // ans = max(ans, (freq[6] + freq[9] + 1) / 2);
+    // cout << ans;
 }
