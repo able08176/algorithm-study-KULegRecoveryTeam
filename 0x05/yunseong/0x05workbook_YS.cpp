@@ -128,62 +128,6 @@
 //    return 0;
 //}
 
-//// BOJ 1158 요세푸스
-//#include <bits/stdc++.h>
-//
-//using namespace std;
-//
-//int main(void) {
-//
-//    int N, K;
-//    cin >> N >> K;
-//
-//    list<int> L;
-//
-//    for(int i=1;i<N+1;i++)
-//        L.push_back(i);
-//
-//    auto pl = L.begin();
-//
-//    int cnt = 1;
-//    int pc = 0;
-//
-//    cout << *L.end() << "\n";
-//    cout << "<";
-//    while(pc < N) {
-//        if(cnt == K) {
-//            pc++;
-//            cout << *pl;
-//            if(pc == N) {
-//                cout << ">";
-//                break;
-//            }
-//            else
-//                cout << ", ";
-//
-//            cout << "\n" << "L.end() : " << *(--L.end()) << "\n";
-//            if(pl == --L.end()) {
-//                L.erase(pl);
-//                pl = L.begin();
-//            }
-//            else
-//                pl = L.erase(pl);
-//            cnt = 1;
-//        }
-//        else {
-//            if(pl == --L.end()) {
-//                pl = L.begin();
-//            }
-//            else
-//                pl++;
-//            cnt++;
-//        }
-//
-//    }
-//
-//    return 0;
-//}
-
 // BOJ 1874 스택 수열
 //#include <iostream>
 //#include <stack>
