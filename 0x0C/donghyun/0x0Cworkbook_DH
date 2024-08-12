@@ -1,0 +1,415 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+/* 문제 - 15649 : N과 M(1) 
+int n, m;
+int arr[10];
+int isused[10];
+
+void func(int num) {
+    if (num == m) {
+        for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+        cout << "\n";
+        return;
+    }
+    for (int i = 1; i <= n; i++) {
+        if (!isused[i]) {
+            arr[num] = i;
+            isused[i] = 1;
+            func(num + 1);
+            isused[i] = 0;
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> m;
+    func(0);
+}
+*/
+/* 문제 - 15650 : N과 M(2)
+int n, m;
+int arr[10];
+int isused[10];
+
+void func(int num) {
+    if (num == m) {
+        for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+        cout << "\n";
+        return;
+    }
+    for (int i = (num == 0 ? 1 : arr[num-1]); i <= n; i++) {
+        if (!isused[i]) {
+            arr[num] = i;
+            isused[i] = 1;
+            func(num + 1);
+            isused[i] = 0;
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> m;
+    func(0);
+}
+*/
+// 기존에 조합으로 중복 반복문을 돌릴때, 안에 있는 반복문의 변수를 바깥 변수보다 크게 두었던 아이디어
+
+/* 문제 - 15651 : N과 M(3)
+int n, m;
+int arr[10];
+
+void func(int num) {
+    if (num == m) {
+        for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+        cout << "\n";
+        return;
+    }
+    for (int i = 1; i <= n; i++) {
+            arr[num] = i;
+            func(num + 1);
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> m;
+    func(0);
+}
+*/
+// 그냥 방문여부를 체크안하면 그만
+
+/* 문제 - 15653 : N과 M(4)
+int n, m;
+int arr[10];
+
+void func(int num) {
+    if (num == m) {
+        for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+        cout << "\n";
+        return;
+    }
+    for (int i = 1; i <= n; i++) {
+        if (num != 0 && arr[num - 1] <= i) {
+            arr[num] = i;
+            func(num + 1);
+        }
+        if (num == 0) {
+            arr[num] = i;
+            func(num + 1);
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> m;
+    func(0);
+}
+*/
+
+/* 문제 - 15654 : N과 M(5)
+int n, m;
+int arr[10];
+int arr2[10];
+int isused[10000];
+
+void func(int num) {
+    if (num == m) {
+        for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+        cout << "\n";
+        return;
+    }
+    for (int j = 0; j < n; j++) {
+        int i = arr2[j];
+        if (!isused[i]) {
+            arr[num] = i;
+            isused[i] = 1;
+            func(num + 1);
+            isused[i] = 0;
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) cin >> arr2[i];
+    sort(arr2, arr2 + n);
+    func(0);
+}
+*/
+
+/* 문제 - 15655 : N과 M(6)
+int n, m;
+int arr[10];
+int arr2[10];
+int isused[10000];
+
+void func(int num) {
+    if (num == m) {
+        for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+        cout << "\n";
+        return;
+    }
+    for (int j = 0; j < n; j++) {
+        int i = arr2[j];
+        if (!isused[i]) {
+            if (num == 0 || arr[num - 1] < i) {
+                arr[num] = i;
+                isused[i] = 1;
+                func(num + 1);
+                isused[i] = 0;
+            }
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) cin >> arr2[i];
+    sort(arr2, arr2 + n);
+    func(0);
+}
+*/
+/* 문제 - 15656 : N과 M(7) 
+int n, m;
+int arr[10];
+int arr2[10];
+
+void func(int num) {
+    if (num == m) {
+        for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+        cout << "\n";
+        return;
+    }
+    for (int j = 0; j < n; j++) {
+        int i = arr2[j];
+        arr[num] = i;
+        func(num + 1);
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) cin >> arr2[i];
+    sort(arr2, arr2 + n);
+    func(0);
+}
+*/
+
+/* 문제 - 15656 : N과 M(8)
+int n, m;
+int arr[10];
+int arr2[10];
+
+void func(int num) {
+    if (num == m) {
+        for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+        cout << "\n";
+        return;
+    }
+    for (int j = 0; j < n; j++) {
+        int i = arr2[j];
+        if (num == 0 || arr[num - 1] <= i) {
+            arr[num] = i;
+            func(num + 1);
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) cin >> arr2[i];
+    sort(arr2, arr2 + n);
+    func(0);
+}
+*/
+/* 문제 - 15657 : N과 M(9)
+int n, m;
+int arr[10];
+int arr2[10];
+int isused[10];
+
+
+void func(int num) {
+    if (num == m) {
+        for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+        cout << "\n";
+        return;
+    }
+
+    int k = 0;
+    for (int i = 0; i < n; ++i) {
+        if (!isused[i] && arr2[i] != k) {
+            arr[num] = arr2[i];
+            k = arr[num];
+            isused[i] = 1;
+            func(num + 1);
+            isused[i] = 0;
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) cin >> arr2[i];
+    sort(arr2, arr2 + n);
+    func(0);
+}
+*/
+
+// 임시변수를 두어서 이전단계에서 나왔던 숫자를 저장하는 아이디어
+// 처음에 k를 전역변수로 두었다가 해결되지 않음 -> 지역변수로 두어야함
+// 왜? 동일선상끼리만 중복을 검사해야함 -> 함수마다 초기화 시켜주어야 함
+
+/* 문제 - 15664 : N과 M(9)
+int n, m;
+int arr[10];
+int arr2[10];
+int isused[10];
+
+
+void func(int num) {
+    if (num == m) {
+        for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+        cout << "\n";
+        return;
+    }
+
+    int k = 0;
+    for (int i = 0; i < n; ++i) {
+        if (!isused[i] && arr2[i] != k) {
+            if (num == 0 || arr[num - 1] <= arr2[i]) {
+                arr[num] = arr2[i];
+                k = arr[num];
+                isused[i] = 1;
+                func(num + 1);
+                isused[i] = 0;
+            }
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) cin >> arr2[i];
+    sort(arr2, arr2 + n);
+    func(0);
+}
+*/
+
+/* 문제 - 15665 : N과 M(11)
+int n, m;
+int arr[10];
+int arr2[10];
+
+
+void func(int num) {
+    if (num == m) {
+        for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+        cout << "\n";
+        return;
+    }
+
+    int k = 0;
+    for (int i = 0; i < n; ++i) {
+        if (arr2[i] != k) {
+                arr[num] = arr2[i];
+                k = arr[num];
+                func(num + 1);
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) cin >> arr2[i];
+    sort(arr2, arr2 + n);
+    func(0);
+}
+*/
+
+/* 문제 - 15666 : N과 M(12)
+int n, m;
+int arr[10];
+int arr2[10];
+
+
+void func(int num) {
+    if (num == m) {
+        for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+        cout << "\n";
+        return;
+    }
+
+    int k = 0;
+    for (int i = 0; i < n; ++i) {
+        if (arr2[i] != k) {
+            if (num == 0 || arr[num - 1] <= arr2[i]) {
+                arr[num] = arr2[i];
+                k = arr[num];
+                func(num + 1);
+            }
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) cin >> arr2[i];
+    sort(arr2, arr2 + n);
+    func(0);
+}
+*/
+int ans = 0;
+int n;
+char arr[25];
+int isused[25];
+char arr2[7];
+
+void func(int num) {
+    if (num == 7) {
+        int sum = 0;
+        for (int i = 0; i < 7; i++) {
+            if (arr2[i] == 'S') sum++;
+        }
+        if (sum > 3) ans++;
+        return;
+    }
+    if (num == 0) {
+        for (int i = 0; i < 18; i++) {
+            arr2[num] = arr[i];
+            func(num + 1);
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    for (int i = 0; i < 25; i++) cin >> arr[i];
+    func(0);
+    cout << ans;
+}
