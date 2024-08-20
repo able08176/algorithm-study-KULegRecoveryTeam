@@ -1543,3 +1543,213 @@ while()
 //
 //    return 0;
 //}
+
+// BOJ 13460 구슬 탈출 2
+//#include <iostream>
+//#include <queue>
+//#include <vector>
+//
+//using namespace std;
+//
+//int min_time = 2147483647;
+//int n, m;
+//int rx, ry, bx, by;
+//int endx, endy;
+//char board[10][10];
+//
+//int dx[4] = {-1, 0, 1, 0};
+//int dy[4] = {0, 1, 0, -1};
+//
+//void red_tilt(int dir) {
+//    int nx = rx;
+//    int ny = ry;
+//
+//    while(true) {
+//
+//        nx = nx + dx[dir];
+//        ny = ny + dy[dir];
+//
+//        if(nx == endx && ny == endy) {
+//            rx = nx;
+//            ry = ny;
+//            break;
+//        }
+//        if(board[nx][ny] == '#' || (nx == bx && ny == by)) {
+//            rx = nx - dx[dir];
+//            ry = ny - dy[dir];
+//            break;
+//        }
+//    }
+//}
+//
+//void blue_tilt(int dir) {
+//    int nx = bx;
+//    int ny = by;
+//
+//    while(true) {
+//
+//        nx += dx[dir];
+//        ny += dy[dir];
+//
+//        if(nx == endx && ny == endy) {
+//            bx = nx;
+//            by = ny;
+//            break;
+//        }
+//        if(board[nx][ny] == '#' || (nx == rx && ny == ry)) {
+//            bx = nx - dx[dir];
+//            by = ny - dy[dir];
+//            break;
+//        }
+//    }
+//}
+//
+//void tilter(int dir) {
+//    // to up = 0, to right = 1, to down = 2, to left = 3
+//    if(dir == 0) {
+//        if(rx < bx) {
+//            red_tilt(0);
+//            blue_tilt(0);
+//        } else {
+//            blue_tilt(0);
+//            red_tilt(0);
+//        }
+//    } else if(dir == 1) {
+//        if(ry > by) {
+//            red_tilt(1);
+//            blue_tilt(1);
+//        } else {
+//            blue_tilt(1);
+//            red_tilt(1);
+//        }
+//    } else if(dir == 2) {
+//        if(rx > bx) {
+//            red_tilt(2);
+//            blue_tilt(2);
+//        } else {
+//            blue_tilt(2);
+//            red_tilt(2);
+//        }
+//    } else if(dir == 3) {
+//        if(ry < by) {
+//            red_tilt(3);
+//            blue_tilt(3);
+//        } else {
+//            blue_tilt(3);
+//            red_tilt(3);
+//        }
+//    }
+//
+//}
+//
+//int arr[10];
+//
+//void bt(int c) {
+//
+//    if(bx == endx && by == endy) {
+//        return;
+//    }
+//    else if(rx == endx && ry == endy && min_time > c) {
+//        min_time = c;
+//        return;
+//    }
+//
+//    if(c == 10) {
+//        return;
+//    }
+//
+//    int tmp_rx, tmp_ry, tmp_bx, tmp_by;
+//    for(int i=0;i<4;i++) {
+//        tmp_rx = rx;
+//        tmp_ry = ry;
+//        tmp_bx = bx;
+//        tmp_by = by;
+//
+//        arr[c] = i;
+//        tilter(i);
+//        bt(c+1);
+//
+//        rx = tmp_rx;
+//        ry = tmp_ry;
+//        bx = tmp_bx;
+//        by = tmp_by;
+//    }
+//
+//}
+//
+//int main(void) {
+////    ios::sync_with_stdio(false);
+////    cin.tie(nullptr);
+//
+//    cin >> n >> m;
+//
+//    for(int i=0;i<n;i++) {
+//        for(int j=0;j<m;j++) {
+//            cin >> board[i][j];
+//            if(board[i][j] == 'R') {
+//                rx = i;
+//                ry = j;
+//                board[i][j] = '.';
+//            } else if(board[i][j] == 'B') {
+//                bx = i;
+//                by = j;
+//                board[i][j] = '.';
+//            } else if(board[i][j] == 'O') {
+//                endx = i;
+//                endy = j;
+//            }
+//        }
+//    }
+//
+//    bt(0);
+//
+//    if(min_time == 2147483647)
+//        min_time = -1;
+//    cout << min_time;
+//
+//    return 0;
+//}
+
+/* 구슬 탈출 <풀이노트>
+
+4^10의 백트래킹.
+상하좌우 가는 경우의 수를 모두 따져서 해결.
+
+---------------------------------------
+기울이기 구현)
+- 위치기반 구현
+도착점 위치,
+R 위치,
+B 위치
+
+위로기울이기: R, B중 x죄표 더 작은거 먼저
+오른쪽으로: R, B중 y죄표 더 큰거 먼저
+아래로: R, B중 x좌표 더 큰거 먼저
+왼쪽으로: R, B중 y좌표 더 작은거 먼저
+
+if문순서:
+if 도착점 만나면 도착점 위치로.
+else if벽 or 다른 공 만나면 그 전 위치로.
+
+백트래킹을 맵 복사로 구현.
+백트래킹 파라미터
+: int c, vector<vector<int>> board
+
+if(구멍위치 == B위치)
+	return;
+if(구멍위치 == R위치 && min_chance > c)
+	min_chance = c;
+	return;
+
+base cond. ) c == 10
+
+for(i=0;i<4;i++)
+	기울이기
+	백트래킹(c+1)
+
+-------------------------------------------
+
+오타나 순서 틀린것 때문에 맞게 구현했는데 고치느라 오래 걸렸다 ㅠㅠㅠㅠ
+이것도 골1 이였네
+
+*/
