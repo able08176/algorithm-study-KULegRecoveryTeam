@@ -1361,3 +1361,185 @@ while()
 아.... 그래서 멘탈나가서 걍 답지 이해하고 끝냇ㄴ슨다...
 
 */
+
+//// BOJ 14503 로봇 청소기
+//#include <iostream>
+//#include <queue>
+//#include <vector>
+//
+//using namespace std;
+//
+//int n, m;
+//int d;
+//int cnt;
+//int room[50][50];
+//
+//// i = 0 ) north, i = 1 ) east ..
+//int dx[4] = {-1, 0, 1, 0};
+//int dy[4] = {0, 1, 0, -1};
+//
+//bool isCleanAble(int x, int y) {
+//    for(int i=0;i<4;i++) {
+//        int nx = x + dx[i];
+//        int ny = y + dy[i];
+//
+//        if(nx < 0 || ny < 0 || nx > n-1 || ny > m-1) continue;
+//        if(room[nx][ny] == 0) return 1;
+//    }
+//
+//    return 0;
+//}
+//
+//void robot(int x, int y, int dir) {
+//    if(room[x][y] == 0) {
+//        room[x][y] = 2;
+//        cnt++;
+//    }
+//
+////    cout << "(x, y): (" << x << ',' << y << ")------------\n";
+////    for(int i=0;i<n;i++) {
+////        for(int j=0;j<m;j++)
+////            cout << room[i][j] << ' ';
+////        cout << '\n';
+////    }
+//
+//    if(isCleanAble(x, y)) {
+//        for(int i=1;i<5;i++) {
+//            int nd = dir - i;
+//            if(nd < 0)
+//                nd = dir + 4 - i;
+//
+//            int nx = x + dx[nd];
+//            int ny = y + dy[nd];
+//
+//            if(nx < 0 || ny < 0 || nx > n-1 || ny > m-1) continue;
+//            if(room[nx][ny] == 1 || room[nx][ny] == 2) continue;
+//
+//            robot(nx, ny, nd);
+//            break;
+//        }
+//    } else {
+//        int nx = x + dx[(dir + 2) % 4];
+//        int ny = y + dy[(dir + 2) % 4];
+//        bool isOff = 0;
+//
+//        if(nx < 0 || ny < 0 || nx > n-1 || ny > m-1 || room[nx][ny] == 1)
+//            isOff = 1;
+//
+//        if(!isOff)
+//            robot(nx, ny, dir);
+//    }
+//}
+//
+//int main(void) {
+//    ios::sync_with_stdio(false);
+//    cin.tie(nullptr);
+//
+//    int st_x, st_y;
+//    cin >> n >> m;
+//    cin >> st_x >> st_y >> d;
+//
+//
+//    for(int i=0;i<n;i++) {
+//        for(int j=0;j<m;j++)
+//            cin >> room[i][j];
+//    }
+//
+//    robot(st_x, st_y, d);
+//
+//    cout << cnt;
+//
+//    return 0;
+//}
+
+/* 구현은 간단하게 진짜 문제에 적힌대로 동작하게 구현하면 됏다.
+방향 가는 것만 실수 안하도록 주의. */
+
+// BOJ 3190 뱀
+//#include <iostream>
+//#include <queue>
+//#include <vector>
+//
+//using namespace std;
+//
+//int board[100][100];
+//
+//int dx[4] = {-1, 0, 1, 0};
+//int dy[4] = {0, 1, 0, -1};
+//// 북 동 남 서 0 1 2 3
+//
+//int main(void) {
+//    ios::sync_with_stdio(false);
+//    cin.tie(nullptr);
+//
+//    int n, k, l;
+//
+//    cin >> n;
+//    cin >> k;
+//
+//    int x, y;
+//    for(int i=0;i<k;i++) {
+//        cin >> x >> y;
+//        x--;
+//        y--;
+//
+//        board[x][y] = 1;
+//    }
+//
+//    cin >> l;
+//
+//    char c;
+//    queue<pair<int, int>> rot;
+//
+//    for(int i=0;i<l;i++) {
+//        cin >> x >> c;
+//
+//        if(c == 'D') // right is 1
+//            rot.push({x, 1});
+//        else
+//            rot.push({x, -1});
+//    }
+//
+//    bool isEnd = 0;
+//    queue<pair<int, int>> head;
+//    queue<pair<int, int>> tail;
+//    tail.push({0, 0});
+//    head.push({0, 1});
+//    int dir = 1;
+//    int t_cnt = 0;
+//
+//    while(!isEnd) {
+//        pair<int, int> cur = head.front(); head.pop();
+//        t_cnt++;
+//
+//        int cx = cur.first;
+//        int cy = cur.second;
+//
+//        if(cx < 0 || cy < 0 || cx > n-1 || cy > n-1 || board[cx][cy] == 2) break; // 2 = snake
+//
+//        if(board[cx][cy] == 0) {
+//            pair<int, int> last_t = tail.front(); tail.pop();
+//            board[last_t.first][last_t.second] = 0;
+//        }
+//
+//        tail.push({cx, cy});
+//        board[cx][cy] = 2;
+//
+//        if(!rot.empty() && rot.front().first == t_cnt) {
+//            int way = rot.front().second; rot.pop();
+//
+//            if(dir + way < 0)
+//                dir = 3;
+//            else if(dir + way > 3)
+//                dir = 0;
+//            else
+//                dir += way;
+//        }
+//
+//        head.push({cx + dx[dir], cy + dy[dir]});
+//    }
+//
+//    cout << t_cnt;
+//
+//    return 0;
+//}
