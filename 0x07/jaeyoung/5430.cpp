@@ -5,56 +5,133 @@
 
 using namespace std;
 
+//void parse(string& tmp, deque<int>& d){
+//    int cur = 0;
+//    for(int i = 1; i+1 < tmp.size(); i++)
+//    {
+//        if(tmp[i] == ','){
+//            d.push_back(cur);
+//            cur = 0;
+//        }
+//        else{
+//            cur = 10 * cur + (tmp[i] - '0');
+//        }
+//    }
+//    if(cur != 0)
+//        d.push_back(cur);
+//}
+//
+//void print_result(deque<int>& d){
+//    cout << '[';
+//    for(int i = 0; i < d.size(); i++)
+//    {
+//        cout << d[i];
+//        if(i+1 != d.size())
+//            cout << ',';
+//    }
+//    cout << "]\n";
+//}
+//
+//int t;
+//int main(){
+//    ios::sync_with_stdio(0);
+//    cin.tie(0);
+//    cin >> t;
+//    while(t--){
+//        deque<int> d;
+//        int rev = 0;
+//        int n;
+//        bool isWrong = false;
+//        string query, tmp;
+//        cin >> query;
+//        cin >> n;
+//        cin >> tmp;
+//        parse(tmp, d);
+//        for(char c : query)
+//        {
+//            if(c == 'R')
+//                rev = 1 - rev;
+//            else{
+//                if(d.empty()){
+//                    isWrong = true;
+//                    break;
+//                }
+//                if(!rev) d.pop_front();
+//                else d.pop_back();
+//            }
+//        }
+//        if(isWrong)
+//            cout << "error\n";
+//        else{
+//            if(rev) reverse(d.begin(), d.end());
+//            print_result(d);
+//        }
+//    }
+//}
+
 int main() {
     int n;
     cin >> n;
     while (n--) {
-        deque<int> deque;
-        string buffer;
-        cin >> buffer;
-        stringstream fstringstream(buffer);
+        string functions;
+        cin >> functions;
 
         int m;
         cin >> m;
 
-        cin >> buffer;
-        buffer = buffer.substr(1, buffer.size() - 2);
-        stringstream arrStream(buffer);
-        while (getline(arrStream, buffer, ',')) {
-            deque.push_back(stoi(buffer));
+        string arr;
+        cin >> arr;
+
+        deque<int> deque;
+        string buffer;
+        for (int i = 1; i < arr.size(); ++i) {
+            if (arr.size() == 2) break;
+            if (arr[i] == ',' || arr[i] == ']') {
+                deque.push_back(stoi(buffer));
+                buffer.clear();
+                continue;
+            }
+            buffer += arr[i];
+
         }
 
-        char f;
-        bool flag = true;
-        while (fstringstream >> f) {
-            if (f == 'R') {
-                if (flag) flag = false;
-                else flag = true;
-            } else {
+        bool isReversed = false;
+        bool isError = false;
+        for (int i = 0; i < functions.size(); ++i) {
+            if (functions[i] == 'R') {
+                if (isReversed) isReversed = false;
+                else isReversed = true;
+            }
+            else {
                 if (deque.empty()) {
                     cout << "error" << "\n";
-                    continue;
+                    isError = true;
+                    break;
                 }
-                if (flag) deque.pop_front();
-                else deque.pop_back();
+                if (isReversed) deque.pop_back();
+                else { deque.pop_front(); }
             }
         }
-        if (deque.empty())
-            continue;
+
+        if (isError) continue;
+
         cout << "[";
-        int size = deque.size();
-        if (flag) {
-            while (--size) {
-                cout << deque.front() << ",";
-                deque.pop_front();
+        if (!deque.empty()) {
+            int size = deque.size();
+            if (isReversed) {
+                for (int i = 0; i < size - 1; ++i) {
+                    cout << deque.back() << ",";
+                    deque.pop_back();
+                }
+                cout << deque.back();
+            } else {
+                for (int i = 0; i < size - 1; ++i) {
+                    cout << deque.front() << ",";
+                    deque.pop_front();
+                }
+                cout << deque.front();
             }
-            cout << deque.front() << "]" << "\n";
-        } else {
-            while (--size) {
-                cout << deque.back() << ",";
-                deque.pop_back();
-            }
-            cout << deque.back() << "]" << "\n";
         }
+        cout << "]" << "\n";
     }
 }
